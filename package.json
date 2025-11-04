@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/sashapervykh/crud-api/issues"
   },
-  "homepage": "https://github.com/sashapervykh/crud-api#readme"
+  "homepage": "https://github.com/sashapervykh/crud-api#readme",
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3"
+  }
 }
