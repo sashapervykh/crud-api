@@ -1,7 +1,5 @@
 import http from 'node:http';
 import dotenv from 'dotenv';
-import { database } from './database/database.ts';
-import { METHODS } from './constants/methods.ts';
 import { BASE_LINK } from './constants/path.ts';
 import { handleAllUsersRequest } from './handlers/handleAllUsersRequest/handleAllUsersRequest.ts';
 
