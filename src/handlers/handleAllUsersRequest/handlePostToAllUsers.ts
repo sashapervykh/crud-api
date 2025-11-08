@@ -18,7 +18,7 @@ export function handlePostToAllUsers(
       const typedBody = getTypeCheckedBody(body);
       const uuid = uuidv4();
       const newUser = { id: uuid, ...typedBody };
-      database.push(newUser);
+      database.addUser(newUser);
       res.writeHead(201, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(newUser));
     } catch (err) {

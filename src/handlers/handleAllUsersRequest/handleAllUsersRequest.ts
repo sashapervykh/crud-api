@@ -12,7 +12,7 @@ export function handleAllUsersRequest(
   switch (req.method) {
     case METHODS.GET: {
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(database));
+      res.end(JSON.stringify(database.getAllUsers()));
       break;
     }
     case METHODS.POST: {

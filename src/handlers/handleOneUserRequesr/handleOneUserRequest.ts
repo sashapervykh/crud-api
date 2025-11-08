@@ -24,7 +24,7 @@ export function handleOneUserRequest(
     return;
   }
 
-  const requestedUser = database.find((elem) => elem.id === urlSegments[2]);
+  const requestedUser = database.getUser(urlSegments[2]);
 
   if (!requestedUser) {
     res.writeHead(404);
@@ -40,6 +40,16 @@ export function handleOneUserRequest(
 
   switch (req.method) {
     case METHODS.GET: {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(requestedUser));
+      break;
+    }
+    case METHODS.DELETE: {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(requestedUser));
+      break;
+    }
+    case METHODS.PUT: {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(requestedUser));
       break;
