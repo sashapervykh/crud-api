@@ -7,8 +7,8 @@ class Database {
     this._savedUsers.push(user);
   }
 
-  deleteUser(user: SavedUserModel) {
-    this._savedUsers = this._savedUsers.filter((elem) => elem.id !== user.id);
+  deleteUser(id: string) {
+    this._savedUsers = this._savedUsers.filter((elem) => elem.id !== id);
   }
 
   getAllUsers() {
