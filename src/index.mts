@@ -26,4 +26,9 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`Server is running on the ${PORT} port`));
+if (process.env.NODE_ENV !== 'test')
+  server.listen(PORT, () =>
+    console.log(`Server is running on the ${PORT} port`),
+  );
+
+export default server;
