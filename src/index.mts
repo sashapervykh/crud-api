@@ -9,20 +9,29 @@ dotenv.config({ path: './.env' });
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer((req, res) => {
-  switch (true) {
-    case req.url === BASE_LINK || req.url === `${BASE_LINK}/`: {
-      handleAllUsersRequest(req, res);
-      break;
+  try {
+    switch (true) {
+      case req.url === BASE_LINK || req.url === `${BASE_LINK}/`: {
+        handleAllUsersRequest(req, res);
+        break;
+      }
+      case req.url?.startsWith(`${BASE_LINK}/`): {
+        handleOneUserRequest(req, res);
+        break;
+      }
+      default: {
+        res.writeHead(404);
+        res.end('Requested resource does not exist! Check your link please...');
+        return;
+      }
     }
-    case req.url?.startsWith(`${BASE_LINK}/`): {
-      handleOneUserRequest(req, res);
-      break;
+  } catch (err) {
+    let message = 'Server error occured. Try again later.';
+    if (err instanceof Error) {
+      message += ` ${err.message}`;
     }
-    default: {
-      res.writeHead(404);
-      res.end('Requested resource does not exist! Check your link please...');
-      return;
-    }
+    res.writeHead(500);
+    res.end(message);
   }
 });
 
