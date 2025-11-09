@@ -26,10 +26,37 @@ describe('The App', () => {
       body: JSON.stringify(mockedUserData),
     });
     const data = await response.json();
+    createdUser = data;
     expect(data.username).toBe(mockedUserData.username);
     expect(data.age).toBe(mockedUserData.age);
     expect(data.hobbies).toStrictEqual(mockedUserData.hobbies);
     expect(data.id).toEqual(expect.any(String));
     expect(validate(data.id)).toBe(true);
+  });
+  it('should return correct saved user for get request to user resource', async () => {
+    const response = await fetch(`${baseLink}/${createdUser.id}`, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    expect(data).toStrictEqual(createdUser);
+  });
+  it('should return correct updated user for put request to user resource', async () => {
+    const updatedUserData = { username: 'Jim', age: 65, hobbies: ['canoe'] };
+    const response = await fetch(`${baseLink}/${createdUser.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedUserData),
+    });
+    const data = await response.json();
+    expect(data).toEqual({ id: createdUser.id, ...updatedUserData });
+  });
+  it('should delete user for delete request to user resource', async () => {
+    await fetch(`${baseLink}/${createdUser.id}`, {
+      method: 'DELETE',
+    });
+    const response = await fetch(baseLink, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    expect(data).toStrictEqual([]);
   });
 });
